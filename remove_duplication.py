@@ -27,7 +27,9 @@ try:
             file6 = file
 except:
     pass
+removed_file_title = ''
 def compare_xml(filex,filey):
+    global removed_file_title
     f1= open(filex,'r')
     alltext1 = f1.read().decode('utf-8')
     f1.close()
@@ -67,6 +69,7 @@ def compare_xml(filex,filey):
             if title_list2[i].lower().strip('[]') == title_list1[j].lower().strip('[]') and year_list2[i].lower() ==year_list1[j].lower():
                 # duplicated.append('2-'+str(i+1)+' and 1-'+str(j+1)+'\n')
                 duplicated21.append(i+1)
+                removed_file_title = title_list1[j].lower().strip('[]') + '\n' + title_list2[i].lower().strip('[]') + '\n\n'
                 # print 'found \n\n'
             elif  a and b and year_list2[i].lower() ==year_list1[j].lower():
                     rate = ratio(a[0].strip().lower() ,b[0].strip().lower())
@@ -82,7 +85,7 @@ def compare_xml(filex,filey):
                                 print 'print error'
                         # print 'found ' + str(i)
                         duplicated21.append(i+1)
-
+                        removed_file_title = title_list1[j].lower().strip('[]') + '\n' + title_list2[i].lower().strip('[]') + '\n\n'
     print  '\n******************************************************************************\n'+filey + ' duplicate with '+filex +' for ' + str(len(duplicated21)) + ' items' + '\n******************************************************************************\n\n'
     new_group2list = alltext2.split('<record>')
     new_group2 = new_group2list[0]
@@ -117,7 +120,7 @@ end = datetime.datetime.now()
 times = 'Using time: \n\tfrom '+str(start) + 'to' + str(end)
 print 'Using time: \n\tfrom '+str(start) + 'to' + str(end)
 f = open('timelog.txt','w')
-f.write(times)
+f.write(removed_file_title + '\n\n\n\n' + times )
 f.close()
 
 
