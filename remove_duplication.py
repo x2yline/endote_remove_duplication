@@ -120,7 +120,7 @@ end = datetime.datetime.now()
 times = 'Using time: \n\tfrom '+str(start) + 'to' + str(end)
 print 'Using time: \n\tfrom '+str(start) + 'to' + str(end)
 f = open('timelog.txt','w')
-f.write(removed_file_title + '\n\n\n\n' + times )
+f.write(removed_file_title.encode('utf-8') )
 f.close()
 
 
